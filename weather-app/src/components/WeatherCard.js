@@ -1,30 +1,31 @@
-
 import React from 'react';
 import { Card } from 'react-bootstrap';
-
+import classes from '../styles/WeatherCard.module.css'
 const WeatherCard = ({ dt, temp_min, temp_max, main, icon }) => {
   const date = new Date(dt);
 
-   convertToCels = (temp_min) => {
-    console.log(temp_min);
-    return (fahrenheit - 32) * 5 / 9
+  function shortTemp(temp) {
+    return new String(temp).substring(0,2) 
   }
+  
   return (
-    <Card style={{ width: '18rem' }}>
+    <div className={classes.Card}>
       <Card.Img
         variant="top"
         src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
       />
       <Card.Body>
-        <Card.Title>{main}</Card.Title>
         <p>
-          {date.toLocaleDateString()} - {date.toLocaleTimeString()}
+          <span style={{ fontSize: '1rem', fontWeight: '500' }}>
+            {date.toLocaleTimeString()}
+          </span>
+          <br />
+          {date.toLocaleDateString()}
         </p>
-        <p>Min:1</p>
-        <p>Max: 2</p>
+        <p>Min: {shortTemp(temp_min)}</p>
+        <p>Max: {shortTemp(temp_max)}</p>
       </Card.Body>
-    </Card>
+    </div>
   );
 };
-
 export default WeatherCard;
